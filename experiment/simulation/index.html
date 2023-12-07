@@ -1,13 +1,1104 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+<head>
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <meta charset="utf-8">
+  <title>Inclined Plane-dei</title>
+</head>
+
+<body>
+  <h3> Conservation Of Mechanical Energy With Sliding Motion</h3>
+  <div id="container"></div>
+
+<div class="mass_object" >Mass of Object m (kg) </div>
+  <div id="slider_mass">
+    0.5<input type="range" class="range" id="currentmass" min="0.5" max="1.1" value="0" step="0.1" oninput="showmass(this.value)" onchange="showmass(this.value)"> 1.1   
+  </div>
+  <div id="initialmassValue">0.5</div>
+
+
+<div class="cof">Coefficient of kinetic friction μ</div>
+     <div id="slider_cof">
+      0<input type="range" class="range" id="currentmuValue" min="0" max="0.09" value="0" step="0.01" oninput="showmu(this.value)" onchange="showmu(this.value)"> 0.09
+     </div>
+     <div id="initialmuValue">0</div>
+
+
+  <div class="angle_of_inclination">Angle of inclination ϴ (in degree) </div>    
+      <div id="slider_angle">
+        15<input type="range" class="range" id="currentInpValue" min="15" max="45" value="15" step="15" oninput="updateHeight(this.value)"  onchange="updateHeight(this.value)"> 45
+      </div>
+      <div id="initialInpValue">15</div>
+      <span id="slider_value"></span>
+
+      <div class="height">• Height (h): <span id="H1Value"></span> </div>
+      <div class="dis_inp">• Distance along the <br> incline plane (s): <span id="hyp"></span> </div>
+      <div class="gravity">• Acceleration due to <br>gravity (g): 9.80 m/s<sup>2</sup> </div>
+      
+      <div class="initial_velocity">
+        <form name="Form" onsubmit="return validateForm()" >• Initial Velocity u (m/s):
+           <input type="text" id="velText" name="velocity">
+          </form>
+      </div>
+
+     <div class = "base" >• Base Length : 2 m </div>
+      
+  <div class="lock">Lock : </div>
+  <input type="checkbox" id="lockCheckbox" value="Lock" onclick="lock()">         <!-- checkbox -->
+  <input type="image" id="stopwatch" src="images\watch_stop.png" >     
+       
+  <div id="buttons">
+          <div class="controls" >Controls: </div>
+        <div class="play">Play</div>
+        <div class="pause">Pause</div>
+        <div class="reset">Reset</div>
+
+        <button type="play" id="play_button" onclick="drawMotion()">
+          <img src="images/play.png"  onclick="play()"/>
+        </button>
+        <button type="pause" id="pause_button">
+          <img src="images/pause.png"  onclick="pause()"/>
+        </button>
+        <button type="reset" id="reset_button">
+          <img src="images/reset.png"  onclick="reset()"/>
+        </button>
+  </div>
+  
+<br>
+        
+<div class="container1">
+        
+  <div id="time1">
+      
+      <span class="digit" id="min">
+        00</span>
+      <span class="txt">:</span>
+      <span class="digit" id="sec">
+        00</span>
+      <span class="txt">:</span>
+      <span class="digit" id="count">
+        00</span>
+  </div>
+
+</div>
+<div id="Table">
+  <table>
+    <tr>
+      <td>t</td>
+      <td id="time Label"></td>
+    </tr>
+    <!-- <tr>
+      <td>x</td>
+      <td id="graph Distance"></td>
+    </tr> -->
+    <tr>
+      <td>v</td>
+      <td id="finalVelocity">0.00 m/s</td>
+    </tr>
+    <tr class = "highlight1">
+      <td>PE</td>
+      <td id="potentialEnergy" ></td>
+    </tr>
+    <tr class = "highlight2">
+      <td>KE</td>
+      <td id="kineticEnergy" ></td>
+    </tr>
+    <tr class = "highlight3">
+      <td>ME</td>
+      <td id="totalEnergy" ></td>
+    </tr>
+    <tr class = "highlight4">
+      <td>TE</td>
+      <td id="thermalEnergy" ></td>
+    </tr>
+    
+  </table>
+</div>
+
+
+<input type="image" id="protector" src="images/protector.png" >     
+
+  <canvas id="myCanvas" width="1024px" height="700px" ></canvas>
+
+  <input type="image" id="screwjack" src="images/ScrewJack.png" >     
+
+ 
+ <script>
+    const slider1 = document.getElementById('currentmuValue');
+    const slider2 = document.getElementById('currentInpValue');
+    const slider3 = document.getElementById('currentmass');
+
+    const checkbox = document.querySelector('#lockCheckbox');
+    const s = document.getElementById("hyp");
+    var velTextBox = document.getElementById("velText");
+
+    const theta = document.getElementById("currentInpValue").value;
+          
+
+      function hAxis(newAxis)
+      {
+         graphType = newAxis;
+         if (graphType == 2) {
+           graphTitle = 'Energy vs. position';
+           xAxisTitle = 'x (cm)';
+           xIncrement = 20;
+           xNumDecimals = 0;
+         }
+         else {
+           graphTitle = 'Energy vs. time';
+           xAxisTitle = 't (s)';
+           xIncrement = 0.2;
+           xNumDecimals = 1;
+         }
+         reset();
+     }
+
+     function showmass(newmass)
+      {
+            
+             //get the element
+             var display = document.getElementById("initialmassValue");
+             //show the amount
+             display.innerHTML=newmass;
+             mass = Number(newmass);
+             reset();
+             
+     }
+      function showmu(newmu)
+      {
+            
+             //get the element
+             var display = document.getElementById("initialmuValue");
+             //show the amount
+             display.innerHTML=newmu;
+             mu = Number(newmu);
+             reset();
+             
+     }
+
+     function showinp(newinp)
+      {
+             //get the element
+             var display =document.getElementById("initialInpValue");
+             //show the amount
+             display.innerHTML=newinp;
+             inp = Number(newinp);
+             reset();
+     }
+
+     function updateHeight(value) {
+        
+        showinp(value);   
+        // Update your variables based on the value of the slider
+        if (value == 15) {
+          H1 = 51.76;
+        }else if (value == 30) {
+          H1 = 100;
+        }else if (value == 45) {
+          H1 = 141.42;
+        } 
+        // else if (value == 60) {
+        //   H1 = 346.41;
+        // } 
+        // else if (value == 75) {
+        //   H1 = 746.42;
+        // }        
+        // Update any elements that display your variable values
+        H1Value.innerHTML = (H1/100).toFixed(2) + " m"; 
+        
+      }
+      
+      function popup(){
+        const checkbox = document.getElementById("lockCheckbox");
+        if (!checkbox.checked) {
+          // If it's not ticked, show a popup for 1 second
+          const popup = document.createElement("div");
+          popup.textContent = "Please lock the parameters first";
+          popup.classList.add("popup");
+          document.body.appendChild(popup);
+          setTimeout(() => {
+            document.body.removeChild(popup);
+          }, 1500);
+          return;
+        }
+      }
+      function play() {
+
+        const checkbox = document.getElementById("lockCheckbox");
+        if (!checkbox.checked) {
+          popup();
+          runFlag = 0;
+        }
+        else{
+          // If it's ticked, program run
+        window.clearTimeout(timer);  
+        runFlag = 1;
+        runMotion();
+
+        }
+        
+      }
+
+
+      function pause() {
+        window.clearTimeout(timer);
+        runFlag = 0;
+
+      }
+
+
+
+      function reset() {
+        window.clearTimeout(timer);
+        index = -1;
+        time = 0.0;
+        finalVelocity = 0;
+        document.getElementById("finalVelocity").textContent =0.00+ ' m/s';
+        hyp1 = Math.sqrt(H1*H1 + B1*B1);
+        a1 = g*H1/hyp1;
+        anet = a1-(mu*g*B1/hyp1);
+        rampTime1 = Math.sqrt(2*hyp1/anet);
+        if (rampTime1 <= 2.0) xIncrement3 = 0.25;
+        if (rampTime1 > 2.0) xIncrement3 = 0.4;
+        if (rampTime1 > 3.2) xIncrement3 = 0.5;
+        if (rampTime1 > 4.0) xIncrement3 = 0.6;
+        v1 = Math.sqrt(2*g*H1);
+        hyp2 = Math.sqrt(H2*H2 + B2*B2);
+        a2 = g*H2/hyp2;
+        rampTime2 = Math.sqrt(2*hyp2/a2);
+        v2 = Math.sqrt(2*g*H2);
+
+        runFlag = 1;
+        
+        uncheckCheckbox('lockCheckbox');
+        slider1.disabled = false;
+        slider2.disabled =false ;
+        slider3.disabled = false;
+        velTextBox.disabled = false;
+        velTextBox.value="";
+
+      
+        drawMotion();
+   
+        
+      }
+
+
+      
+
+      function validateForm() {
+        let velText = document.forms["Form"]["velocity"].value;
+        let numericRegex = /^[0-1]+$/;                                                                  // Regular expression 
+
+        if (velText === "") {
+          alert("Initial velocity must be filled out");
+          return false;
+        } else if (!numericRegex.test(velText)) {
+          alert("Please enter a valid initial velocity (numeric value only between 0 to 1)");
+          return false;
+        } else if (velText < 0 || velText > 1) {
+          alert("Please enter initial velocity between 0 to 1");
+          return false;
+        }
+        
+      }
+      function lock(){
+
+        if(validateForm() === false){
+            uncheckCheckbox('lockCheckbox');
+          }
+
+        checkbox.addEventListener('change', function() {
+          if (this.checked) {
+            slider1.disabled = true;
+            slider2.disabled = true;
+            slider3.disabled = true;
+            velTextBox.disabled = true;
+          } else {
+            slider1.disabled = false;
+            slider2.disabled =false ;
+            slider3.disabled = false;
+            velTextBox.disabled = false;
+            reset();
+          }   
+
+        });
+
+      }
+
+      function uncheckCheckbox(checkboxId) {
+        const checkbox = document.getElementById(checkboxId);
+        checkbox.checked = false;
+      }
+
+
+
+      var canvas = document.getElementById("myCanvas");
+      var context = canvas.getContext("2d");
+   
+      var index = -1;
+      var xAxisStart3 =620;
+      var yAxisStart3 = 440;
+
+      var xAxisStart2 =120;
+      var yAxisStart2 = 440;
+
+      var xBase = 220;     // for the drawing
+      var xBase2 = 120;   // for the graph
+      var xBase3 = 620;   // for the time graph
+      var yBase = 245;     // for the drawing
+      var yBase2 = 440;    // for the graph
+      var xInit = 37;
+      var graphType = 2;
+      var graphTitle = 'Velocity vs time';
+      var graphTitle3 = 'Energy vs time/position';
+      var yAxisTitle = 'Energy (J)';
+      var yAxisTitle1 = 'Velocity (m/s)';
+      var xAxisTitle = 't (s)';
+      var xAxisTitle1 = 's (m)';
+      var rampYAxisTitle = 'h (m)';
+      var rampXAxisTitle = 'Width (cm)';
+      var xIncrement = 20;
+      var xIncrement3 = 0.25;
+      var xNumDecimals = 0;
+      var xNumDecimals3 = 2;
+      var yIncrement = 10;                    // y axis value increment of position vs energy graph
+      var yIncrement1 = 2;                    // y axis value increment of Velocity vs time graph
+
+      var yNumDecimals = 0;
+      var xAxisOffset = 0;
+      var graphYdraw = 2;                       // y axis length of graph 1   
+      var xIncrementDraw = 20;
+      var yIncrementDraw = 20;                  // draw value of y axis of incline plane
+      var xNumDecimalsDraw = 0;
+      var graphY = 5;
+      var graphX = 8;
+      var graphX2 = 8;
+      var incline_planeX =10;
+      var yStart = yBase+120;
+      var plotColor = '#ff00ff';
+      var scenario = 1;
+      var H1 = 51.76;
+      var B1 = 200;
+      var H2 = 20;
+      var B2 = 60;
+      var g = 980;
+      var hyp1 = Math.sqrt(H1*H1 + B1*B1);
+      var d1;
+      var x1;
+      var y1;
+      var a1 = g*(H1)/hyp1;   //acceleration
+      var mu = 0;
+      var u = 0;
+
+      var finalVelocity = 0;            //final velocity
+
+      var mass = 0.5;
+      var anet = a1-(mu*g*B1/hyp1);         // net acceleration
+      var rampTime1 = Math.sqrt(2*hyp1/anet);
+      var speed = 0;
+      var v1 = Math.sqrt(2*g*H1);
+      var ePotential = 0;
+      var eKinetic = 0;
+      var eTotal = 0;
+      var eThermal = 0;
+      var hyp2 = Math.sqrt(H2*H2 + B2*B2);
+      var d2;
+      var x2;
+      var y2;
+      var a2 = g*H2/hyp2;
+      var rampTime2 = Math.sqrt(2*hyp2/a2);
+      var v2 = Math.sqrt(2*g*H2);
+      var radius = 8;
+      var time = 0.0;
+      var deltat = 1/20.0;
+      var timer;
+      var runFlag = 1;
+        reset();
+
+    function drawMotion() {
+      
+      const vel = document.getElementById("velText").value;
+      var u = parseFloat(vel); 
+      const theta = document.getElementById("currentInpValue").value;
+
+  //    console.log("In the drawMotion function, with runFlag = " + runFlag );
+
+      if ((index >= 1000) || (time >= rampTime1)) runFlag = 0;
+
+  //    console.log("In the drawMotion function, with runFlag = " + runFlag + " Fx = " + Fx);
+
+      if (runFlag == 1) {    //      run if runFlag equal 1, not if equal 0
+        // clear
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        index = index + 1;
+        // set background color for the graph
+           context.fillStyle = "#eff";
+           
+          //  context.fillRect(xBase2, yBase2, 40*graphX, 40*graphY);
+
+           var axisLabel = '';
+           var axisValue = 0;
+
+        // set up the velocoity  graph
+        drawAxes (xBase2, yBase2, graphX, graphY, xAxisOffset, xIncrement3, yIncrement1, xNumDecimals3, yNumDecimals, xAxisTitle,"", yAxisTitle1, graphTitle,"","",xAxisStart2,yAxisStart2);
+
+        // set up the energy time graph
+        drawAxes (xBase3, yBase2, graphX2, graphY, xAxisOffset, xIncrement3, yIncrement, xNumDecimals3, yNumDecimals, xAxisTitle,xAxisTitle1, yAxisTitle, graphTitle3,xAxisStart3,yAxisStart3);
+        drawXaxis (xBase3, yBase2, graphX2, graphY, xAxisOffset,xIncrement3,g,theta,mu,u);
+
+
+        // set background color for the drawing
+          //  context.fillStyle = "#eff";
+          //  context.fillRect(xBase, yBase, 400, 80);
+          
+           context.strokeStyle = '#000';
+           context.lineWidth = 1;
+
+
+      
+        // set line color
+           context.strokeStyle = '#999';
+           context.lineWidth = 2;
+
+           context.strokeStyle = '#000';
+          context.beginPath();            //black push line of screw jack
+          context.lineWidth = 6;
+          context.moveTo(xBase+6, yBase+80-2*H1/2);
+           context.lineTo(xBase+6, yBase+80);
+           context.stroke();
+
+        // draw ramp 1
+           context.strokeStyle = '#373737';
+           context.lineWidth = 15;
+           context.beginPath();
+           context.moveTo(xBase, yBase+80-2*H1/2);
+           context.lineTo(xBase+2*B1+25, yBase+80);
+          //  context.lineTo(xBase, yBase+80);
+          context.stroke();
+
+          
+
+
+           time = index/200.0;
+
+           
+
+        // draw ball 1
+           context.strokeStyle = 'red';
+           context.lineWidth = 2;
+           context.beginPath();
+           if (time < rampTime1) {
+             d1 = 0.5*anet*time*time;
+             speed = anet*time;
+             x1 = d1*B1/hyp1;
+             y1 = d1*(H1/2)/hyp1;
+           }
+           else {
+             x1 = B1+v1*(time - rampTime1);
+             speed = v1;
+             if (x1 > 200){
+              if(H1 == 51.76) x1=200;
+              if(H1 == 100) x1=203;
+              if(H1 == 141.42) x1=206;
+              
+             }
+             y1 = H1/2;
+            }
+           ePotential = mass*g*(H1-y1)*12/39200;
+           eKinetic = 0.5*mass*speed*speed*12/39200;
+
+            // set up the grid for the drawing
+   drawAxes1 (xBase, yBase, incline_planeX, graphYdraw, xAxisOffset, xIncrementDraw, yIncrementDraw, xNumDecimalsDraw, yNumDecimals, rampXAxisTitle, rampYAxisTitle, " ");
+   
+
+           const startX = xBase+25;
+          var startY = yBase-H1+74;
+          const length = 200;
+          var inclineAngle = 83; // Incline angle in degrees
+          if(H1 == 51.76) inclineAngle = 83;
+          if(H1 == 100){
+             inclineAngle = 76.5;
+             startY =yBase-H1+75.5;
+          }
+          if(H1 == 141.42){
+            inclineAngle = 70.5;
+            startY =yBase-H1+78;
+          } 
+          const radians = (90 - inclineAngle) * (Math.PI / 180); // Convert degrees to radians
+          const endX = startX + Math.cos(radians) * length;
+          var endY = startY - Math.sin(radians) * length; 
+          if(H1 == 141.42){
+            endY =startY - Math.sin(radians) * length+3.5;
+          } 
+      // Draw the baseline
+          context.strokeStyle = "white";
+          context.lineWidth = 2;
+
+    
+    // Draw the scale divisions
+    for (let i = 0; i <= 20; i++) {
+        var divisionX = startX + (i / 10) * (endX - startX);
+        var divisionY = startY - (i / 10) * (endY - startY);
+        context.beginPath();
+        context.moveTo(divisionX, divisionY); 
+        if(H1 == 51.76) divisionX = divisionX+2;
+        if(H1 == 100) divisionX = divisionX+1;
+        context.lineTo(divisionX-4, divisionY + 7);
+        context.stroke();
+        
+    }
+          
+ 
+// draw block 
+           context.save();
+           context.translate(xBase-5, yBase+100-2*(H1/2));
+           context.rotate(18.20*(H1/140)*Math.PI/180.0);
+           context.fillStyle = "blue";
+           context.fillRect(2*x1, -58, 30, 30);
+           context.restore();
+           s.innerHTML = (hyp1/100).toFixed(2)+ " m";
+
+       // lightgate 1
+            context.save();
+           context.translate(xBase+50, yBase+138-(H1/1.2));
+           context.rotate(18.20*(H1/140)*Math.PI/180.0);
+           context.fillStyle = "yellow";
+           context.fillRect(25, -85, 8, 30);
+           context.strokeStyle = 'black';    
+           context.lineWidth = 2;                             
+          context.strokeRect(25, -84, 8, 30);
+           context.restore();
+          
+            // lightgate 2
+           context.save();
+           context.translate(xBase+150, yBase+100-(H1/1.6));
+           context.rotate(18.20*(H1/140)*Math.PI/180.0);
+           context.fillStyle = "yellow";
+           context.fillRect(25, -45, 8, 30);
+           context.strokeStyle = 'black';    
+           context.lineWidth = 2;
+           context.strokeRect(25, -45, 8, 30);
+           context.restore();
+
+            // lightgate 3
+            context.save();
+           context.translate(xBase+250, yBase+101-(H1/2.5));
+           context.rotate(18.20*(H1/140)*Math.PI/180.0);
+           context.fillStyle = "yellow";
+           context.fillRect(25, -45, 8, 30);
+           context.strokeStyle = 'black';    
+           context.lineWidth = 2;
+           context.strokeRect(25, -45, 8, 30);
+           context.restore();
+
+           
+            // lightgate 4
+            context.save();
+           context.translate(xBase+350, yBase+101-(H1/6));
+           context.rotate(18.20*(H1/140)*Math.PI/180.0);
+           context.fillStyle = "yellow";
+           context.fillRect(20, -45, 8, 30);
+           context.strokeStyle = 'black';    
+           context.lineWidth = 2;
+           context.strokeRect(20, -45, 8, 30);
+           context.restore();
+          // draw the actual graphs
+           context.lineWidth = 4;
+
+           var graphDistance = 0.0;
+
+           // time graph, thermal energy
+           context.strokeStyle = "#1d0606";
+           eThermal = 0;
+           context.beginPath();
+           context.moveTo(xBase3, yBase2+40*graphY-(40/yIncrement)*eThermal);
+           for (i = 1; i <=index; i++) {
+             var graphTime = i/200;
+             if (graphTime > rampTime1) graphTime = rampTime1;
+             var graphSpeed = anet*graphTime;
+             graphDistance = 0.5*anet*graphTime*graphTime;
+             var graphY1 = graphDistance*(H1)/hyp1;
+             eThermal = graphDistance*mu*mass*g*(B1/hyp1)*12/39200;
+             if (mu > 0) context.lineTo(xBase3+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement)*eThermal);
+            }
+            context.stroke();
+
+           // time graph, total energy
+           context.strokeStyle = "blue";
+           eTotal = mass*g*H1*12/39200;
+           context.beginPath();
+           context.moveTo(xBase3, yBase2+40*graphY-(40/yIncrement)*eTotal);
+           for (i = 1; i <=index; i++) {
+             var graphTime = i/200;
+             if (graphTime > rampTime1) graphTime = rampTime1;
+             var graphSpeed = anet*graphTime;
+             graphDistance = 0.5*anet*graphTime*graphTime;
+             var graphY1 = graphDistance*(H1)/hyp1;
+             ePotential = mass*g*((H1)-graphY1)*12/39200;
+             eKinetic = 0.5*mass*graphSpeed*graphSpeed*12/39200;
+             eTotal = ePotential + eKinetic;
+             context.lineTo(xBase3+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement)*eTotal);
+            }
+            context.stroke();
+
+           
+          // display values in table
+          
+          document.getElementById("potentialEnergy").textContent = Math.abs(ePotential).toFixed(1)+" J";
+          document.getElementById("kineticEnergy").textContent = eKinetic.toFixed(1)+" J";
+          document.getElementById("thermalEnergy").textContent = eThermal.toFixed(1)+" J";
+          document.getElementById("totalEnergy").textContent = eTotal.toFixed(1)+" J";
+
+          
+
+            // time graph, potential energy
+           context.strokeStyle = "red";
+           ePotential = mass*g*(H1)*12/39200;
+           context.beginPath();
+           context.moveTo(xBase3, yBase2+40*graphY-(40/yIncrement)*ePotential);
+           for (i = 1; i <=index; i++) {
+             var graphTime = i/200;
+             if (graphTime > rampTime1) graphTime = rampTime1;
+             graphDistance = 0.5*anet*graphTime*graphTime;
+             var graphY1 = graphDistance*(H1)/hyp1;
+             ePotential = mass*g*((H1)-graphY1)*12/39200;
+             context.lineTo(xBase3+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement)*ePotential);
+            }
+            context.stroke();
+
+           // time graph, kinetic energy
+           context.strokeStyle = "green";
+           eKinetic = 0;
+           context.beginPath();
+           context.moveTo(xBase3, yBase2+40*graphY-(40/yIncrement)*eKinetic);
+           for (i = 1; i <=index; i++) {
+             var graphTime = i/200;
+             if (graphTime > rampTime1) graphTime = rampTime1;
+             var graphSpeed = anet*graphTime;
+             graphDistance = 0.5*anet*graphTime*graphTime;
+             eKinetic = 0.5*mass*graphSpeed*graphSpeed*12/39200;
+            context.lineTo(xBase3+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement)*eKinetic);
+           }
+            context.stroke();
+
+          // Time Vs position Graph
+          //   context.strokeStyle = "purple";
+          //  var position = 0;
+          //  context.beginPath();
+          //  context.moveTo(xBase2, yBase2+40*graphY-(40/yIncrement1)*position);
+          //  for (i = 1; i <=index; i++) {
+          //    var graphTime = i/200;
+          //    if (graphTime > rampTime1) graphTime = rampTime1;
+          //    var graphSpeed = anet*graphTime;
+          //    graphDistance = 0.5*anet*graphTime*graphTime;
+          //    position = graphDistance * B1 / hyp1;
+          //    context.lineTo(xBase2+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement1)*position);
+          //  }
+          //   context.stroke();
+
+           // Time Vs Velocity Graph
+          //  const vel = document.getElementById("velText").value;
+          // var u = parseFloat(vel); 
+          if (!isNaN(u)) {
+            if (document.getElementById("play_button")) {
+              // finalVelocity
+              context.strokeStyle = "black";  
+              context.beginPath();
+              context.moveTo(xBase2, yBase2+40*graphY-(40/yIncrement1)-u);
+              for (i = 1; i <=index; i++) {
+                var graphTime = i/200;
+                if (graphTime > rampTime1) graphTime = rampTime1;
+                var graphSpeed = anet*graphTime;
+                graphDistance = 0.5*anet*graphTime*graphTime;
+                var thetaInRadians = (theta* Math.PI) / 180; 
+                var finalVelocity = Math.sqrt(Math.pow(u, 2) + 2 * ((g/100) * Math.sin(thetaInRadians) - mu * (g/100) * Math.cos(thetaInRadians)) * graphDistance/100);
+                context.lineTo(xBase2+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement1)*finalVelocity);  
+              }
+                // display values in table
+                document.getElementById("finalVelocity").textContent =finalVelocity.toFixed(2)+ ' m/s';
+                context.lineWidth=2;
+              context.stroke();
+          
+        
+              }
+          } 
+
+        // draw the scenario
+
+ //     console.log("In the drawMotion function, with runFlag = " + runFlag + " x2 = " + x2);
+
+           context.font = '16pt Calibri';
+           context.fillStyle = 'black';
+
+        if (time > rampTime1) time = rampTime1;
+        
+  
+// display values in table
+        document.getElementById("time Label").textContent =time.toFixed(3)+ ' s';
+          // document.getElementById("graph Distance").textContent = ((graphDistance*B1/hyp1)/100).toFixed(1)+ ' m';
+
+           // key
+           context.strokeStyle = "blue";
+           context.beginPath();
+           context.moveTo(30, yBase-80);
+           context.lineTo(130, yBase-80);
+           context.stroke();
+
+           context.textAlign = 'center';
+           context.fillStyle = 'blue';
+           context.fillText("Mechanical", 80, yBase-65);
+
+           context.strokeStyle = "red";
+           context.beginPath();
+           context.moveTo(30, yBase-30);
+           context.lineTo(130, yBase-30);
+           context.stroke();
+
+           context.textAlign = 'center';
+           context.fillStyle = 'red';
+           context.fillText("Potential", 80, yBase-15);
+
+           context.strokeStyle = "green";
+           context.beginPath();
+           context.moveTo(30, yBase+20);
+           context.lineTo(130, yBase+20);
+           context.stroke();
+
+           context.textAlign = 'center';
+           context.fillStyle = 'green';
+           context.fillText("Kinetic", 80, yBase+35);
+
+           if (mu > 0) {
+             context.strokeStyle = "#1d0606";
+             context.beginPath();
+             context.moveTo(30, yBase+65);
+             context.lineTo(130, yBase+65);
+             context.stroke();
+
+             context.textAlign = 'center';
+             context.fillStyle = '#1d0606';
+             context.fillText("Thermal", 80, yBase+80);
+            }
+        
+            // readouts
+          context.textAlign = 'center';
+           context.fillStyle = 'black';
+           context.font = '30px solid Arial';
+           context.fillRect(780, yBase +32, 133, 31); 
+           context.fillStyle = '#58dfab';
+           context.fillText(time.toFixed(3) + " s", 845, yBase+50);
+
+      }
+    }
+
+    function runMotion() {
+     
+      drawMotion();
+      if (runFlag == 1) {
+        timer = window.setTimeout(runMotion, 1000/60);
+        
+      }      
+    }
+
+    
+
+    function drawXaxis(xAxisStart,yAxisStart,xNum,yNum, xOffset, xIncrement,g,theta,mu,u){
+      for (var i = 0; i <= xNum; i++) {
+          context.beginPath();
+          context.stroke();
+          context.font = '12pt Calibri';
+          context.fillStyle = 'black';
+          context.textAlign = 'center';
+          context.textBaseline = 'middle';
+          axisValue = xOffset+xIncrement*(i);
+          axisLabel = axisValue.toFixed(1);
+
+        var thetaInRadians = (theta* Math.PI) / 180;         
+        var a = (g/100) * Math.sin(thetaInRadians) - mu * (g/100) * Math.cos(thetaInRadians);
+
+        if(u>0){
+          var s = u * axisLabel + (a * axisLabel * axisLabel) / 2;
+          context.fillText(s.toFixed(1), xAxisStart+40*i, yAxisStart+40*yNum-210);
+        }else{
+          var s = 0 * axisLabel + (a * axisLabel * axisLabel) / 2;
+          context.fillText(s.toFixed(1), xAxisStart+40*i, yAxisStart+40*yNum-210);
+        }
+      }
+    }
+    function drawAxes(xAxisStart,yAxisStart,xNum, yNum, xOffset, xIncrement, yIncrement, xNumDecimals, yNumDecimals, xAxisTitle, xAxisTitle1, yAxisTitle, graphTitle,xAxisStart3,yAxisStart3,xAxisStart2,yAxisStart2) {
+        // set background color for the graph
+           context.fillStyle = "#ffd4d4";
+           context.fillRect(xAxisStart, yAxisStart, 40*xNum, 40*yNum);
+
+           var axisLabel = '';
+           var axisValue = 0;
+
+         // vertical grid lines
+         context.lineWidth = 2;
+         context.strokeStyle = '#888';
+
+         for (var i = 0; i <= xNum; i++) {
+           context.beginPath();
+           context.moveTo(xAxisStart+40*i, yAxisStart);
+           context.lineTo(xAxisStart+40*i, yAxisStart+40*yNum+10);
+           context.stroke();
+           context.font = '12pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'center';
+           context.textBaseline = 'middle';
+           axisValue = xOffset+xIncrement*(i);
+           axisLabel = axisValue.toFixed(xNumDecimals);
+
+           context.fillText(axisLabel, xAxisStart+40*i, yAxisStart+40*yNum+20);
+
+
+          }
+
+          // horizontal grid lines
+         for (i = 0;i<= yNum;i++) {
+           context.beginPath();
+           context.moveTo(xAxisStart-10, yAxisStart+40*i);
+           context.lineTo(xAxisStart+40*xNum, yAxisStart+40*i);
+           context.stroke();
+           context.font = '14pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'center';
+           context.textBaseline = 'middle';
+           axisValue = yIncrement*(yNum-i);
+           axisLabel = axisValue.toFixed(yNumDecimals);
+           context.fillText(axisLabel, xAxisStart-30, yAxisStart+40*i);
+           
+          }
+          
+         // x-axis
+           context.strokeStyle = '#000';
+           context.lineWidth = 4;
+           context.beginPath();
+           context.moveTo(xAxisStart-1, yAxisStart+40*yNum);
+           context.lineTo(xAxisStart+40*xNum+20, yAxisStart+40*yNum);
+           context.stroke();
+           context.moveTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum-6);
+           context.lineTo(xAxisStart+40*xNum+20, yAxisStart+40*yNum);
+           context.lineTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum+6);
+           context.lineJoin = 'miter';
+           context.stroke();
+           context.font = '16pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'left';
+           context.fillText(xAxisTitle, xAxisStart+40*xNum+24, yAxisStart+40*yNum);
+
+
+         // y-axis
+
+         
+
+          context.strokeStyle = '#000';
+           context.beginPath();
+   
+           context.moveTo(xAxisStart, yAxisStart-2);                                 // energy vs time graph y axis
+           context.lineTo(xAxisStart, yAxisStart+40*yNum);
+          
+           context.moveTo(xAxisStart2, yAxisStart2-15);                        // velocity vs time graph y axis
+           context.lineTo(xAxisStart2, yAxisStart2+40*yNum);
+           context.stroke();
+           context.moveTo(xAxisStart2-6, yAxisStart2-10);
+           context.lineTo(xAxisStart2, yAxisStart2-20);
+           context.lineTo(xAxisStart2+6, yAxisStart2-10);
+           context.lineJoin = 'miter';
+           context.stroke();
+
+           context.strokeStyle = '#000';
+           context.textAlign = 'center';
+  //         console.log("In the drawMotion function, with yAxisTitle = " + yAxisTitle + xAxisStart );
+
+           context.font = '16pt Calibri';
+           context.fillStyle = 'black';
+           context.fillText(yAxisTitle, xAxisStart-30, yAxisStart - 35);
+
+           // graph title
+           context.font = 'bold 18pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'center';
+           context.fillText(graphTitle, xAxisStart+40*xNum/2, yAxisStart-28);
+
+           // another x axis
+           context.strokeStyle = '#000';
+           context.lineWidth = 4;
+           context.beginPath();
+           context.moveTo(xAxisStart3-1, yAxisStart3+0*yNum);
+           context.lineTo(xAxisStart3+40*xNum+20, yAxisStart3+0*yNum);
+           context.stroke();
+           context.moveTo(xAxisStart3+40*xNum+10, yAxisStart3+0*yNum-6);
+           context.lineTo(xAxisStart3+40*xNum+20, yAxisStart3+0*yNum);
+           context.lineTo(xAxisStart3+40*xNum+10, yAxisStart3+0*yNum+6);
+           context.lineJoin = 'miter';
+           context.stroke();
+           context.font = '16pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'left';
+           context.fillText(xAxisTitle1, xAxisStart3+40*xNum+24, yAxisStart3);
+           
+    }
+
+    // set up of incline plane
+    function drawAxes1(xAxisStart,yAxisStart,xNum, yNum, xOffset, xIncrement, yIncrement, xNumDecimals, yNumDecimals, xAxisTitle, yAxisTitle, graphTitle) {
+        
+      
+          // context.fillStyle = "#ffd4d4";
+          // context.fillRect(xAxisStart, yAxisStart, 40*xNum, 40*yNum);
+      // set background color for the graph
+
+      // const pixelData = context.getImageData(xAxisStart, yAxisStart, 1, 1).data;
+
+           var axisLabel = '';
+           var axisValue = 0;
+
+           // vertical grid line
+
+         for (var i = 0; i <= xNum/2; i++) {
+          //  context.beginPath();
+          //  context.moveTo(xAxisStart+40*i, yAxisStart);
+          //  context.lineTo(xAxisStart+40*i, yAxisStart+40*yNum+10);
+          //  context.stroke();
+           context.font = '14pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'center';
+           context.textBaseline = 'middle';
+           axisValue = (xOffset+xIncrement*(2*i))/99.9;
+           axisLabel = axisValue.toFixed(1);
+          //  context.fillText(axisLabel, xAxisStart+40*2*i, yAxisStart+40*yNum+20);    // below scale of x axis of ramp
+          }
+
+         // horizontal grid lines
+        //  for (i = -6; i <= yNum; i++) {
+        //    context.beginPath();
+        //    context.moveTo(xAxisStart-10, yAxisStart*1.16+20*i);
+        //    context.lineTo(xAxisStart+40*xNum, yAxisStart*1.16+20*i);
+        //    context.stroke();
+        //    context.font = '14pt Calibri';
+        //    context.fillStyle = 'black';
+        //    context.textAlign = 'center';
+        //    context.textBaseline = 'middle';
+        //    axisValue = yIncrement*(yNum-i);
+        //    axisLabel = axisValue.toFixed(yNumDecimals);
+        //    context.fillText(axisLabel, xAxisStart-40, yAxisStart*1.16+20*i);
+
+        //   }
+//scale
+        // for (var i = 0; i <= xNum; i++) {
+        //    context.lineWidth = 2;
+        //    context.strokeStyle = 'white';                                     //ramp x axis 
+        //    const degreesPerDivision = 10;
+        //    context.beginPath();
+        //    context.moveTo(xAxisStart+42*i, yAxisStart+5*i);
+        //    context.lineTo(xAxisStart+40*i, yAxisStart+40*yNum+(i * degreesPerDivision));
+        //    context.stroke();
+        //    }
+
+         // support table
+           context.strokeStyle = '#65451F';                                     //ramp x axis 
+           context.lineWidth = 8;
+           context.beginPath();
+           context.moveTo(xAxisStart-20, yAxisStart+50*yNum);
+           context.lineTo(xAxisStart+43*xNum, yAxisStart+50*yNum);
+           context.lineTo(xAxisStart+43*xNum, yAxisStart+120);
+           context.moveTo(xAxisStart-16, yAxisStart+50*yNum);
+           context.lineTo(xAxisStart-16, yAxisStart+120);
+           context.stroke();
+
+           context.beginPath();
+           context.lineWidth = 8;
+           context.strokeStyle = '#000';                                
+           context.moveTo(xAxisStart+42.2*xNum, yAxisStart+48*yNum);
+           context.lineTo(xAxisStart+43.8*xNum, yAxisStart+40);
+           context.stroke();
+           context.fillStyle = "black";
+          context.fillRect(xAxisStart+380,yAxisStart+85,47,12);
+
+   
+          //  context.moveTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum-6);
+          //  context.lineTo(xAxisStart+40*xNum+20, yAxisStart+40*yNum);
+          //  context.lineTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum+6);
+          //  context.lineJoin = 'miter';
+          //  context.stroke();
+          //  context.font = '16pt Calibri';
+          //  context.fillStyle = 'black';
+          //  context.textAlign = 'left';
+          //  context.fillText(xAxisTitle, xAxisStart+40*xNum+24, yAxisStart+40*yNum);
+
+         // y-axis
+           context.strokeStyle = '#000';
+           context.lineWidth = 2;
+          //  context.beginPath();
+          //  context.moveTo(xAxisStart-30,yBase+80-2*H1/2);
+          //  context.lineTo(xAxisStart-30, yAxisStart+40*yNum);
+          //  context.stroke();
+          //  context.moveTo(xAxisStart-34, yBase+80-2*H1/2+5);    //upper arrow
+          //  context.lineTo(xAxisStart-30,yBase+80-2*H1/2);
+          //  context.lineTo(xAxisStart-26, yBase+80-2*H1/2+5);
+          //  context.lineJoin = 'miter';
+          //  context.stroke();
+          //  context.moveTo(xAxisStart-34, yBase+80-5);      //lower arrow
+          //  context.lineTo(xAxisStart-30,yBase+80);
+          //  context.lineTo(xAxisStart-26, yBase+80-5);
+          //  context.lineJoin = 'miter';
+          //  context.stroke();
+          //  context.strokeStyle = '#000';
+          //  context.textAlign = 'center';
+  //         console.log("In the drawMotion function, with yAxisTitle = " + yAxisTitle + xAxisStart );
+
+           context.font = '14pt Calibri';
+           context.fillStyle = 'black';
+           context.fillText(yAxisTitle, xAxisStart-60,yBase+80-(H1/2));
+
+          //           // s arrow
+          //           context.beginPath();
+          //  context.moveTo(xAxisStart, yBase+20-2*H1/2);
+          //  context.lineTo(xAxisStart+40*xNum+13, yAxisStart+40*yNum-50);
+          //  context.stroke();
+          //  context.moveTo(xAxisStart+10+H1/100,yBase+15-2*H1/2+H1/50);    //upper arrow
+          //  context.lineTo(xAxisStart-1,yBase+20-2*H1/2);
+          //  context.lineTo(xAxisStart+10+H1/200,yBase+27-2*H1/2+H1/50);
+          //  context.lineJoin = 'miter';
+          //  context.stroke();
+          //  context.moveTo(xAxisStart+400-H1/200, yBase+25-H1/20);      //lower arrow
+          //  context.lineTo(xAxisStart+412,yBase+30);
+          //  context.lineTo(xAxisStart+400-H1/100,yBase+35-H1/30);
+          //  context.lineJoin = 'miter';
+          //  context.stroke();
+          //  context.strokeStyle = '#000';
+          //  context.textAlign = 'center';
+
+          //  context.font = '16pt Calibri';
+          //  context.fillStyle = 'black';
+          //  context.fillText("s", xAxisStart+180,yBase-H1/2-10);
+
+           // graph title
+           context.font = 'bold 18pt Calibri';
+           context.fillStyle = 'black';
+           context.textAlign = 'center';
+           context.fillText(graphTitle, xAxisStart+40*xNum/2, yAxisStart-24);
+
+    }
+   
+    updateHeight(15);
+     
+
+  </script>
+  <div id="copyright" title="Developer : Harsh Pathak, Shivangi Gupta and Aysha, Dayalbagh Educational Instiute,Agra "></div>
+  <div id="Developer_information" 
+  title="Developer Name:
+               1.Harsh Pathak
+                 (06hpathak@gmail.com)
+               2.Shivangi Gupta
+                 (guptashivangi95366@gmail.com)
+               3.Aysha
+                 (satsangiaysha@gmail.com)
+  Instiute Name: Dayalbagh Educational Instiute, Agra">
+  </div>
+
 </body>
 </html>
