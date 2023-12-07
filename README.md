@@ -27,5 +27,5 @@ Experiment to To study the sliding motion of an object down an inclined plane to
 SrNo | Name | Faculty or Student | Department| Institute | Email id
 :--|:--|:--|:--|:--|:--|
 1 | Harsh Pathak | Student | Mechanical Engineering | Dayalbagh Educational Institute | 06hpathak@gmail.com
-2| Shivangi Gupta | Student | Mechanical Engineering | Dayalbagh Educational Institute | guptashivangi@95366@gmail.com
+2| Shivangi Gupta | Student | Mechanical Engineering | Dayalbagh Educational Institute | guptashivangi95366@gmail.com
 3 | Aysha | Student | Mechanical Engineering | Dayalbagh Educational Institute | satsangiaysha@gmail.com
