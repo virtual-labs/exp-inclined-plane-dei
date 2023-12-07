@@ -1,1 +1,366 @@
-/* You CSS goes in here */
+html, body {
+	overflow: hidden;
+}
+div#container 
+{
+	width: 1330PX;
+	height:610PX ;
+	background: url("../images/background.jpg");
+	background-repeat : no-repeat; 
+}
+/* .range{
+	width : 120px;
+	height: 10px;
+	appearance: none;
+	background: #edf1f4;
+	outline: 0.5px;
+	outline-style: solid;
+	outline-color:rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff , inset 5px 5px 5px rgba(0, 0, 0, 0.1) ;
+	overflow: hidden;
+}
+.range::-webkit-slider-thumb{
+	appearance: none;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2px solid #0074cf;
+	box-shadow: -158px 0 0 152px #27a0ff;
+	cursor: pointer;
+} */
+
+h3{
+	position:absolute;
+	top:10px;
+	left: 280px;
+	font-size: 28px;
+
+}
+.play
+{
+	position: absolute;
+	top: 10px;
+	left: 0px;
+}
+
+#myCanvas
+{
+	position:absolute;
+	left:250px;
+	top:-10px;
+	height: 650px;
+	width: 840px;
+
+}
+/* .object_selection
+{
+	position:absolute;
+    left: 30px;
+    top: 130px;
+}
+#ball
+{
+	position:absolute;
+    left: 30px;
+    top: 170px;
+}
+#Cube
+{position:absolute;
+    left: 30px;
+    top: 188px;
+}
+.ball_label
+{
+	position:absolute;
+    left: 60px;
+    top: 170px;
+}
+.cube_label
+{
+	position:absolute;
+    left: 60px;
+    top: 188px;
+} */
+.mass_object
+{
+	position:absolute;
+    left: 30px;
+    top: 125px;
+
+}
+#slider_mass{
+	position:absolute;
+	left: 30px;
+	top: 145px;
+}
+#initialmassValue{
+	position:absolute;
+    left: 90px;
+	top:160px;
+}
+.cof{
+	position:absolute;
+    left: 30px;
+    top: 190px;
+}
+#slider_cof{
+	position:absolute;
+    left: 30px;
+    top: 210px;
+}
+#initialmuValue{
+	position:absolute;
+    left: 95px;
+    top: 225px;
+}
+
+.angle_of_inclination{
+	position:absolute;
+    left: 30px;
+    top: 255px;
+}
+#slider_angle{
+	position:absolute;
+    left: 30px;
+    top: 275px;
+}
+
+#initialInpValue{
+	position:absolute;
+    left: 95px;
+    top: 290px;
+}
+.height{
+	position:absolute;
+    left: 30px;
+    top: 410px;
+}
+.base{
+	position: absolute;
+	left: 30px;
+	top: 440px;
+	
+}
+
+.dis_inp{
+	position:absolute;
+    left: 30px;
+    top: 470px;
+}
+.gravity{
+	position:absolute;
+    left: 30px;
+    top: 520px;
+}
+
+.initial_velocity{
+	position:absolute;
+    left: 30px;
+    top: 320px;
+}
+#velText{
+	position: absolute;
+	/* border: none; */
+	left: 180px;
+	background-color: transparent;
+	width: 30px;
+	border-radius: 4px;
+}
+.lock{
+	position:absolute;
+    left: 85px;
+    top: 376px;
+	font-family: Arial;
+	font-style: bold;
+}
+#lockCheckbox{
+	position:absolute;
+    left: 135px;
+    top: 372px;
+	height: 20px;
+	width: 20px;
+
+}
+#buttons{
+	position: absolute;
+	top: 0px;
+	left: 10px;
+}
+.controls{
+	position:absolute;
+    left: 1100px;
+    top: 150px;
+	font-size: 23px;
+	font-family: Arial;
+	font-style: bold;
+}
+.play{
+	position:absolute;
+	top: 195px;
+	left: 1100px;
+	font-size: 20px;
+}
+#play_button
+{ 
+	position:absolute;
+	border: none;
+	cursor: pointer;
+	appearance: none;
+	background-color: inherit;
+	left: 1200px;
+	top: 190px;
+}
+.pause{
+	position:absolute;
+	top: 235px;
+	left: 1100px;
+	font-size: 20px;
+}
+#pause_button
+{ 
+	position:absolute;
+	border: none;
+	cursor: pointer;
+	appearance: none;
+	background-color: inherit;
+	left: 1200px;
+	top: 230px;
+}
+.reset{
+	position:absolute;
+	top: 270px;
+	left: 1100px;
+	font-size: 20px;
+}
+#reset_button
+{ 
+	position:absolute;
+	border: none;
+	cursor: pointer;
+	appearance: none;
+	background-color: inherit;
+	left: 1200px;
+	top: 265px;
+}
+
+.popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 50px;
+	background: white;
+	border: 1px solid black;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	font-size: 30px;
+  }
+#stopwatch{
+position : absolute;
+left : 850px;
+top : 168px;
+width: 190px;
+height: 190px;
+}
+
+.container1 {
+	background-color: #323333;
+	align-items: center;
+	position: absolute;
+	left: 890px;
+	top:246px;
+
+}
+#Table{
+	position: absolute;
+	top : 320px;
+	left : 1110px;
+	background-color: transparent;
+}
+table {
+    border-collapse: collapse;
+    width: 150%;
+	border: 2px solid #000000;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+tr {
+	border-bottom: 1px solid #000000;
+	}
+
+/* style the table cells */
+td {
+
+padding: 6px;
+text-align: center;
+border: 2px solid #000000;
+}
+
+.highlight1 {
+    color: red;
+    font-weight: bold;
+}
+
+.highlight2 {
+	color: green;
+	font-weight: bold;
+}
+.highlight3 {
+	color: blue;
+	font-weight: bold;
+}
+.highlight4 {
+	color: #1d0606;
+	font-weight: bold;
+}
+/* .digit {
+	font-size: 26px;
+	color: #58dfab;
+	font-family: fantasy;
+
+}
+	
+.txt {
+	font-size: 26px;
+	color: #58dfab;
+	font-family: fantasy;
+} */
+div#copyright
+{
+	position:absolute;
+	left:280px;
+	top:600px;
+	height: 10px;
+	width: 800px;
+	text-align: center;
+	font-size: 12px;
+	font-family:sans-serif;
+}
+
+#screwjack{
+	position : absolute;
+	left : 380px;
+	top : 250px;
+	height: 60px;
+	width: auto;
+}
+
+#protector{
+	position : absolute;
+	left : 655px;
+	top : 172px;
+	height: 140px;
+	width: auto;
+}
+#stage3_button{
+	position : absolute;
+	left : 1180px;
+	top : 550px;
+}
+#stage2_button{
+	position : absolute;
+	left : 1180px;
+	top : 550px;
+}
