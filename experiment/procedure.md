@@ -17,6 +17,7 @@ plane from rest.
  <p align="center">
   <img src="images/p1.png">
 </p>
+8. Plot the velocity-time graph, potential energy-time graph and kinetic energy-time graph
 
 ### In the simulator
 1. Enter the mass and size of the block
