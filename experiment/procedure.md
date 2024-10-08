@@ -15,7 +15,7 @@ kinetic friction.
 plane from rest.
 7. Tabulate the values in the following table
  <p align="center">
-  <img src="images/p1.png">
+  <img src="images/p1.jpeg">
 </p>
 8. Plot the velocity-time graph, potential energy-time graph and kinetic energy-time graph
 
