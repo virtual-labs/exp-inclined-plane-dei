@@ -1,9 +1,8 @@
 ## Procedure
 ### In real Laboratory
 1. Measure the mass and size of the box using a weighing machine and scale respectively.
-2. Set the plane at zero inclination and place the box at one upper end of the plane
-3. Increase the angle of inclination slowly until the block begins to slip down. Repeat this process to
-yield an average value of angle of repose θr. This can be used to calculate the coefficient of static
+2. Set the plane at zero inclination and place the box at the upper end of the plane.
+3. Increase the angle of inclination slowly until the block begins to slip down. Repeat this process to obtain an average value of the angle of repose (θr). This can be used to calculate the coefficient of static
 friction.
 4. Clamp the light gates at definite intervals along the length of the inclined plane. The light gates
 should be properly aligned so that the object passes through the light gate on sliding.
@@ -11,7 +10,7 @@ should be properly aligned so that the object passes through the light gate on s
 object or tap the plane to see if it slides down the plane. Repeat the experiment to get the minimum
 angle at which the block slides at constant velocity. This can be used to determine the coefficient of
 kinetic friction.
-6. Set the desired angle of inclination greater than angle of repose. Allow the object to slide down the
+6. Set the desired angle of inclination greater than the angle of repose. Allow the object to slide down the
 plane from rest.
 7. Tabulate the values in the following table
  <p align="center">

@@ -99,6 +99,17 @@
             },
             "correctAnswer": "b",
             "difficulty": "beginner"
+        },
+         {
+            "question": "If the plotted velocity–time graph of the sliding block shows a constant slope after 2 seconds, what does this indicate about the motion?",
+            "answers": {
+                "a": "The block has reached constant velocity (dynamic equilibrium)",
+                "b": "The block is accelerating uniformly",
+                "c": "The coefficient of static friction has increased",
+                "d": "The block has stopped moving"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
         }
     ]
 }

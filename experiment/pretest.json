@@ -99,6 +99,17 @@
             },
             "correctAnswer": "a",
             "difficulty": "beginner"
+        },
+        {
+            "question": "When a block slides down an inclined plane, which of the following best represents the relationship between kinetic energy (K.E.) and potential energy (P.E.) with time?",
+            "answers": {
+                "a": "Both K.E. and P.E. increase with time",
+                "b": "K.E. decreases while P.E. increases",
+                "c": "K.E. increases while P.E. decreases",
+                "d": "Both remain constant"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
         }
     ]
 }
