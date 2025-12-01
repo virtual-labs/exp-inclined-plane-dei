@@ -1,0 +1,115 @@
+{
+    "version": 2,
+    "questions": [
+        {
+            "question": "What does the angle of repose signify?",
+            "answers": {
+                "a": "The maximum angle of inclination of the plane",
+                "b": "The minimum angle of inclination of the plane",
+                "c": "The angle at which the object begins to slide down the plane",
+                "d": "The angle at which the object remains stationary on the plane"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which method is used to determine the coefficient of dynamic friction?",
+            "answers": {
+                "a": "Angle of repose method",
+                "b": "Constant velocity method",
+                "c": "Potential energy method",
+                "d": "Kinetic energy method"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "How is work defined?",
+            "answers": {
+                "a": "The product of force and time",
+                "b": "The product of force and displacement",
+                "c": "The product of mass and velocity",
+                "d": "The product of mass and acceleration"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which type of energy is associated with the motion of an object?",
+            "answers": {
+                "a": "Potential energy only",
+                "b": "Kinetic energy only",
+                "c": "Both potential and kinetic energy",
+                "d": "Neither potential nor kinetic energy"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What is the gravitational potential energy of an object defined as?",
+            "answers": {
+                "a": "The work done against the frictional force",
+                "b": "The energy transferred due to the application of force",
+                "c": "The energy possessed by an object due to its position in a gravitational field",
+                "d": "The energy required to elevate an object by a certain height"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What factor determines whether an object slides down an inclined plane?",
+            "answers": {
+                "a": "Coefficient of friction only",
+                "b": "Angle of inclination only",
+                "c": "Weight of the object only",
+                "d": "Coefficient of friction, angle of inclination, and weight of the object"
+            },
+            "correctAnswer": "d",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which type of force is responsible for the frictional force?",
+            "answers": {
+                "a": "Conservative force",
+                "b": "Non-conservative force",
+                "c": "External force",
+                "d": "Internal force"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "How is the coefficient of static friction determined?",
+            "answers": {
+                "a": "By measuring the angle of inclination",
+                "b": "By measuring the minimum angle at which the object starts to slide",
+                "c": "By measuring the maximum angle at which the object remains stationary",
+                "d": "By measuring the angle at which the object slides at constant velocity"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which instrument is used to measure the time of passing of the object?",
+            "answers": {
+                "a": "Stopwatch",
+                "b": "Light gate",
+                "c": "Ruler",
+                "d": "Protractor"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+         {
+            "question": "If the plotted velocity–time graph of the sliding block shows a constant slope after 2 seconds, what does this indicate about the motion?",
+            "answers": {
+                "a": "The block has reached constant velocity (dynamic equilibrium)",
+                "b": "The block is accelerating uniformly",
+                "c": "The coefficient of static friction has increased",
+                "d": "The block has stopped moving"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
+        }
+    ]
+}
