@@ -113,37 +113,54 @@
         <span class="digit" id="count"> 00</span>
       </div>
     </div>
-    <div id="Table">
-      <table>
-        <tr>
-          <td>t</td>
-          <td id="time Label"></td>
-        </tr>
-        <!-- <tr>
-      <td>x</td>
-      <td id="graph Distance"></td>
-    </tr> -->
-        <tr>
-          <td>v</td>
-          <td id="finalVelocity">0.00 m/s</td>
-        </tr>
-        <tr class="highlight1">
-          <td>PE</td>
-          <td id="potentialEnergy"></td>
-        </tr>
-        <tr class="highlight2">
-          <td>KE</td>
-          <td id="kineticEnergy"></td>
-        </tr>
-        <tr class="highlight3">
-          <td>ME</td>
-          <td id="totalEnergy"></td>
-        </tr>
-        <tr class="highlight4">
-          <td>TE</td>
-          <td id="thermalEnergy"></td>
-        </tr>
-      </table>
+
+    <!-- Observation Table Button -->
+    <button id="observationTableBtn" onclick="openObservationTable()">
+      📊 Observation Table
+    </button>
+
+    <!-- Observation Table Popup -->
+    <div id="observationTablePopup" class="observation-popup">
+      <div class="observation-popup-content">
+        <span class="close-btn" onclick="closeObservationTable()">&times;</span>
+        <h2>Observation Table</h2>
+        <div id="Table">
+          <table>
+            <tr>
+              <td>t</td>
+              <td id="time Label"></td>
+            </tr>
+            <tr>
+              <td>v</td>
+              <td id="finalVelocity">0.00 m/s</td>
+            </tr>
+            <tr class="highlight1">
+              <td>PE</td>
+              <td id="potentialEnergy"></td>
+            </tr>
+            <tr class="highlight2">
+              <td>KE</td>
+              <td id="kineticEnergy"></td>
+            </tr>
+            <tr class="highlight3">
+              <td>ME</td>
+              <td id="totalEnergy"></td>
+            </tr>
+            <tr class="highlight4">
+              <td>TE</td>
+              <td id="thermalEnergy"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="energyVisualization">
+      <canvas id="energyChart" width="200" height="200"></canvas>
+      <div id="energyFormula">
+        <p><strong>Relation: ME = PE + KE + TE</strong></p>
+        
+      </div>
     </div>
 
     <input type="image" id="protector" src="images/protector.png" />
@@ -162,6 +179,24 @@
       var velTextBox = document.getElementById("velText");
 
       const theta = document.getElementById("currentInpValue").value;
+
+      // Observation Table Functions
+      function openObservationTable() {
+        document.getElementById("observationTablePopup").style.display =
+          "block";
+      }
+
+      function closeObservationTable() {
+        document.getElementById("observationTablePopup").style.display = "none";
+      }
+
+      // Close popup when clicking outside of it
+      window.onclick = function (event) {
+        const popup = document.getElementById("observationTablePopup");
+        if (event.target == popup) {
+          popup.style.display = "none";
+        }
+      };
 
       function hAxis(newAxis) {
         graphType = newAxis;
@@ -215,12 +250,6 @@
         } else if (value == 45) {
           H1 = 141.42;
         }
-        // else if (value == 60) {
-        //   H1 = 346.41;
-        // }
-        // else if (value == 75) {
-        //   H1 = 746.42;
-        // }
         // Update any elements that display your variable values
         H1Value.innerHTML = (H1 / 100).toFixed(2) + " m";
       }
@@ -415,32 +444,94 @@
       var runFlag = 1;
       reset();
 
+      function drawEnergyVisualization(pe, ke, te) {
+        const canvas = document.getElementById("energyChart");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const totalEnergy = pe + ke + te;
+        const maxHeight = 150;
+
+        if (totalEnergy === 0) {
+          ctx.fillStyle = "#ccc";
+          ctx.fillRect(50, 30, 40, 120);
+          ctx.fillStyle = "#000";
+          ctx.font = "12px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText("No Energy", 70, 165);
+          return;
+        }
+
+        // Calculate proportional heights
+        const peHeight = (pe / totalEnergy) * maxHeight;
+        const keHeight = (ke / totalEnergy) * maxHeight;
+        const teHeight = (te / totalEnergy) * maxHeight;
+
+        let currentY = 30 + maxHeight;
+
+        // Draw PE (Red)
+        ctx.fillStyle = "#ff0000";
+        ctx.fillRect(30, currentY - peHeight, 30, peHeight);
+        ctx.strokeStyle = "#000";
+        ctx.strokeRect(30, currentY - peHeight, 30, peHeight);
+
+        // Draw KE (Green)
+        ctx.fillStyle = "#00cc00";
+        ctx.fillRect(70, currentY - keHeight, 30, keHeight);
+        ctx.strokeRect(70, currentY - keHeight, 30, keHeight);
+
+        // Draw TE (Brown)
+        ctx.fillStyle = "#8B4513";
+        ctx.fillRect(110, currentY - teHeight, 30, teHeight);
+        ctx.strokeRect(110, currentY - teHeight, 30, teHeight);
+
+        // Draw ME (Total) reference line
+        ctx.strokeStyle = "#0000ff";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(25, 30);
+        ctx.lineTo(155, 30);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Labels
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 12px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("PE", 45, 195);
+        ctx.fillText("KE", 85, 195);
+        ctx.fillText("TE", 125, 195);
+
+        // Value labels
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "#ff0000";
+        ctx.fillText(pe.toFixed(1) + "J", 45, 210);
+        ctx.fillStyle = "#00cc00";
+        ctx.fillText(ke.toFixed(1) + "J", 85, 210);
+        ctx.fillStyle = "#8B4513";
+        ctx.fillText(te.toFixed(1) + "J", 125, 210);
+      }
+
       function drawMotion() {
         const vel = document.getElementById("velText").value;
         var u = parseFloat(vel);
         const theta = document.getElementById("currentInpValue").value;
 
-        //    console.log("In the drawMotion function, with runFlag = " + runFlag );
-
         if (index >= 1000 || time >= rampTime1) runFlag = 0;
 
-        //    console.log("In the drawMotion function, with runFlag = " + runFlag + " Fx = " + Fx);
-
         if (runFlag == 1) {
-          //      run if runFlag equal 1, not if equal 0
-          // clear
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           index = index + 1;
-          // set background color for the graph
           context.fillStyle = "#eff";
-
-          //  context.fillRect(xBase2, yBase2, 40*graphX, 40*graphY);
 
           var axisLabel = "";
           var axisValue = 0;
 
-          // set up the velocoity  graph
+          // set up the velocoity graph
           drawAxes(
             xBase2,
             yBase2,
@@ -494,19 +585,14 @@
             u
           );
 
-          // set background color for the drawing
-          //  context.fillStyle = "#eff";
-          //  context.fillRect(xBase, yBase, 400, 80);
-
           context.strokeStyle = "#000";
           context.lineWidth = 1;
 
-          // set line color
           context.strokeStyle = "#999";
           context.lineWidth = 2;
 
           context.strokeStyle = "#000";
-          context.beginPath(); //black push line of screw jack
+          context.beginPath();
           context.lineWidth = 6;
           context.moveTo(xBase + 6, yBase + 80 - (2 * H1) / 2);
           context.lineTo(xBase + 6, yBase + 80);
@@ -518,7 +604,6 @@
           context.beginPath();
           context.moveTo(xBase, yBase + 80 - (2 * H1) / 2);
           context.lineTo(xBase + 2 * B1 + 25, yBase + 80);
-          //  context.lineTo(xBase, yBase+80);
           context.stroke();
 
           time = index / 200.0;
@@ -564,7 +649,7 @@
           const startX = xBase + 25;
           var startY = yBase - H1 + 74;
           const length = 200;
-          var inclineAngle = 83; // Incline angle in degrees
+          var inclineAngle = 83;
           if (H1 == 51.76) inclineAngle = 83;
           if (H1 == 100) {
             inclineAngle = 76.5;
@@ -574,7 +659,7 @@
             inclineAngle = 70.5;
             startY = yBase - H1 + 78;
           }
-          const radians = (90 - inclineAngle) * (Math.PI / 180); // Convert degrees to radians
+          const radians = (90 - inclineAngle) * (Math.PI / 180);
           const endX = startX + Math.cos(radians) * length;
           var endY = startY - Math.sin(radians) * length;
           if (H1 == 141.42) {
@@ -648,7 +733,7 @@
           context.lineWidth = 2;
           context.strokeRect(20, -45, 8, 30);
           context.restore();
-          // draw the actual graphs
+
           context.lineWidth = 4;
 
           var graphDistance = 0.0;
@@ -702,7 +787,6 @@
           context.stroke();
 
           // display values in table
-
           document.getElementById("potentialEnergy").textContent =
             Math.abs(ePotential).toFixed(1) + " J";
           document.getElementById("kineticEnergy").textContent =
@@ -711,6 +795,9 @@
             eThermal.toFixed(1) + " J";
           document.getElementById("totalEnergy").textContent =
             eTotal.toFixed(1) + " J";
+
+          // Update energy visualization with current values
+          drawEnergyVisualization(Math.abs(ePotential), eKinetic, eThermal);
 
           // time graph, potential energy
           context.strokeStyle = "red";
@@ -754,24 +841,6 @@
           }
           context.stroke();
 
-          // Time Vs position Graph
-          //   context.strokeStyle = "purple";
-          //  var position = 0;
-          //  context.beginPath();
-          //  context.moveTo(xBase2, yBase2+40*graphY-(40/yIncrement1)*position);
-          //  for (i = 1; i <=index; i++) {
-          //    var graphTime = i/200;
-          //    if (graphTime > rampTime1) graphTime = rampTime1;
-          //    var graphSpeed = anet*graphTime;
-          //    graphDistance = 0.5*anet*graphTime*graphTime;
-          //    position = graphDistance * B1 / hyp1;
-          //    context.lineTo(xBase2+(40/xIncrement3)*graphTime, yBase2+40*graphY-(40/yIncrement1)*position);
-          //  }
-          //   context.stroke();
-
-          // Time Vs Velocity Graph
-          //  const vel = document.getElementById("velText").value;
-          // var u = parseFloat(vel);
           if (!isNaN(u)) {
             if (document.getElementById("play_button")) {
               // finalVelocity
@@ -808,10 +877,6 @@
             }
           }
 
-          // draw the scenario
-
-          //     console.log("In the drawMotion function, with runFlag = " + runFlag + " x2 = " + x2);
-
           context.font = "16pt Calibri";
           context.fillStyle = "black";
 
@@ -820,7 +885,6 @@
           // display values in table
           document.getElementById("time Label").textContent =
             time.toFixed(3) + " s";
-          // document.getElementById("graph Distance").textContent = ((graphDistance*B1/hyp1)/100).toFixed(1)+ ' m';
 
           // key
           context.strokeStyle = "blue";
@@ -926,6 +990,7 @@
           }
         }
       }
+
       function drawAxes(
         xAxisStart,
         yAxisStart,
@@ -990,7 +1055,6 @@
         }
 
         // Check if this is the right graph (energy graph) based on xAxisStart position
-        // Right graph starts at xBase3 = 620, left graph starts at xBase2 = 120
         if (xAxisStart > 600) {
           // This is the RIGHT GRAPH (Energy)
           // LOWER X-AXIS for Energy graph (Energy vs time)
@@ -1014,7 +1078,6 @@
           context.font = "bold 14pt Calibri";
           context.fillStyle = "black";
           context.textAlign = "center";
-          // Label for lower x-axis: Energy vs time
           context.fillText(
             "Energy vs time",
             xAxisStart + (40 * xNum) / 2,
@@ -1042,7 +1105,6 @@
           context.font = "bold 14pt Calibri";
           context.fillStyle = "black";
           context.textAlign = "center";
-          // Label for upper x-axis: Energy vs position
           context.fillText(
             "Energy vs position",
             xAxisStart3 + (40 * xNum) / 2,
@@ -1109,7 +1171,6 @@
           // Y-axis label for velocity graph
           context.textAlign = "center";
           context.fillText("Velocity (m/s)", xAxisStart - 30, yAxisStart - 30);
-          // Arrow for y-axis
           context.moveTo(xAxisStart - 8, yAxisStart + 10);
           context.lineTo(xAxisStart, yAxisStart - 6);
           context.lineTo(xAxisStart + 10, yAxisStart + 10);
@@ -1125,7 +1186,7 @@
         context.lineTo(xAxisStart, yAxisStart + 40 * yNum);
         context.stroke();
       }
-      // set background color for the graph
+
       context.fillStyle = "#ffd4d4";
       context.fillRect(xAxisStart, yAxisStart, 40 * xNum, 40 * yNum);
 
@@ -1185,7 +1246,6 @@
       context.font = "16pt Calibri";
       context.fillStyle = "black";
       context.textAlign = "left";
-      // Label for lower x-axis: Energy vs time
       context.fillText(
         "Energy vs time",
         xAxisStart + (40 * xNum) / 2 - 50,
@@ -1207,7 +1267,6 @@
       context.font = "16pt Calibri";
       context.fillStyle = "black";
       context.textAlign = "left";
-      // Label for upper x-axis: Energy vs position
       context.fillText(
         "Energy vs position",
         xAxisStart3 + (40 * xNum) / 2 - 60,
@@ -1229,133 +1288,9 @@
         yAxisTitle,
         graphTitle
       ) {
-        // context.fillStyle = "#ffd4d4";
-        // context.fillRect(xAxisStart, yAxisStart, 40*xNum, 40*yNum);
-        // set background color for the graph
-
-        // const pixelData = context.getImageData(xAxisStart, yAxisStart, 1, 1).data;
-
-        var axisLabel = "";
-        var axisValue = 0;
-
-        // vertical grid line
-
-        for (var i = 0; i <= xNum / 2; i++) {
-          //  context.beginPath();
-          //  context.moveTo(xAxisStart+40*i, yAxisStart);
-          //  context.lineTo(xAxisStart+40*i, yAxisStart+40*yNum+10);
-          //  context.stroke();
-          context.font = "14pt Calibri";
-          context.fillStyle = "black";
-          context.textAlign = "center";
-          context.textBaseline = "middle";
-          axisValue = (xOffset + xIncrement * (2 * i)) / 99.9;
-          axisLabel = axisValue.toFixed(1);
-          //  context.fillText(axisLabel, xAxisStart+40*2*i, yAxisStart+40*yNum+20);    // below scale of x axis of ramp
-        }
-
-        // horizontal grid lines
-        //  for (i = -6; i <= yNum; i++) {
-        //    context.beginPath();
-        //    context.moveTo(xAxisStart-10, yAxisStart*1.16+20*i);
-        //    context.lineTo(xAxisStart+40*xNum, yAxisStart*1.16+20*i);
-        //    context.stroke();
-        //    context.font = '14pt Calibri';
-        //    context.fillStyle = 'black';
-        //    context.textAlign = 'center';
-        //    context.textBaseline = 'middle';
-        //    axisValue = yIncrement*(yNum-i);
-        //    axisLabel = axisValue.toFixed(yNumDecimals);
-        //    context.fillText(axisLabel, xAxisStart-40, yAxisStart*1.16+20*i);
-
-        //   }
-        //scale
-        // for (var i = 0; i <= xNum; i++) {
-        //    context.lineWidth = 2;
-        //    context.strokeStyle = 'white';                                     //ramp x axis
-        //    const degreesPerDivision = 10;
-        //    context.beginPath();
-        //    context.moveTo(xAxisStart+42*i, yAxisStart+5*i);
-        //    context.lineTo(xAxisStart+40*i, yAxisStart+40*yNum+(i * degreesPerDivision));
-        //    context.stroke();
-        //    }
-
-        // support table
-        context.strokeStyle = "#65451F"; //ramp x axis
-        context.lineWidth = 8;
-        context.beginPath();
-        context.moveTo(xAxisStart - 20, yAxisStart + 50 * yNum);
-        context.lineTo(xAxisStart + 43 * xNum, yAxisStart + 50 * yNum);
-        context.lineTo(xAxisStart + 43 * xNum, yAxisStart + 120);
-        context.moveTo(xAxisStart - 16, yAxisStart + 50 * yNum);
-        context.lineTo(xAxisStart - 16, yAxisStart + 120);
-        context.stroke();
-
-        context.beginPath();
-        context.lineWidth = 8;
-        context.strokeStyle = "#000";
-        context.moveTo(xAxisStart + 42.2 * xNum, yAxisStart + 48 * yNum);
-        context.lineTo(xAxisStart + 43.8 * xNum, yAxisStart + 40);
-        context.stroke();
-        context.fillStyle = "black";
-        context.fillRect(xAxisStart + 380, yAxisStart + 85, 47, 12);
-
-        //  context.moveTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum-6);
-        //  context.lineTo(xAxisStart+40*xNum+20, yAxisStart+40*yNum);
-        //  context.lineTo(xAxisStart+40*xNum+10, yAxisStart+40*yNum+6);
-        //  context.lineJoin = 'miter';
-        //  context.stroke();
-        //  context.font = '16pt Calibri';
-        //  context.fillStyle = 'black';
-        //  context.textAlign = 'left';
-        //  context.fillText(xAxisTitle, xAxisStart+40*xNum+24, yAxisStart+40*yNum);
-
-        // y-axis
-        context.strokeStyle = "#000";
-        context.lineWidth = 2;
-        //  context.beginPath();
-        //  context.moveTo(xAxisStart-30,yBase+80-2*H1/2);
-        //  context.lineTo(xAxisStart-30, yAxisStart+40*yNum);
-        //  context.stroke();
-        //  context.moveTo(xAxisStart-34, yBase+80-2*H1/2+5);    //upper arrow
-        //  context.lineTo(xAxisStart-30,yBase+80-2*H1/2);
-        //  context.lineTo(xAxisStart-26, yBase+80-2*H1/2+5);
-        //  context.lineJoin = 'miter';
-        //  context.stroke();
-        //  context.moveTo(xAxisStart-34, yBase+80-5);      //lower arrow
-        //  context.lineTo(xAxisStart-30,yBase+80);
-        //  context.lineTo(xAxisStart-26, yBase+80-5);
-        //  context.lineJoin = 'miter';
-        //  context.stroke();
-        //  context.strokeStyle = '#000';
-        //  context.textAlign = 'center';
-        //         console.log("In the drawMotion function, with yAxisTitle = " + yAxisTitle + xAxisStart );
-
         context.font = "14pt Calibri";
         context.fillStyle = "black";
         context.fillText(yAxisTitle, xAxisStart - 60, yBase + 80 - H1 / 2);
-
-        //           // s arrow
-        //           context.beginPath();
-        //  context.moveTo(xAxisStart, yBase+20-2*H1/2);
-        //  context.lineTo(xAxisStart+40*xNum+13, yAxisStart+40*yNum-50);
-        //  context.stroke();
-        //  context.moveTo(xAxisStart+10+H1/100,yBase+15-2*H1/2+H1/50);    //upper arrow
-        //  context.lineTo(xAxisStart-1,yBase+20-2*H1/2);
-        //  context.lineTo(xAxisStart+10+H1/200,yBase+27-2*H1/2+H1/50);
-        //  context.lineJoin = 'miter';
-        //  context.stroke();
-        //  context.moveTo(xAxisStart+400-H1/200, yBase+25-H1/20);      //lower arrow
-        //  context.lineTo(xAxisStart+412,yBase+30);
-        //  context.lineTo(xAxisStart+400-H1/100,yBase+35-H1/30);
-        //  context.lineJoin = 'miter';
-        //  context.stroke();
-        //  context.strokeStyle = '#000';
-        //  context.textAlign = 'center';
-
-        //  context.font = '16pt Calibri';
-        //  context.fillStyle = 'black';
-        //  context.fillText("s", xAxisStart+180,yBase-H1/2-10);
 
         // graph title
         context.font = "bold 18pt Calibri";
