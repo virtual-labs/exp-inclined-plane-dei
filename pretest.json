@@ -1,0 +1,115 @@
+{
+    "version": 2,
+    "questions": [
+        {
+            "question": "What is the coefficient of static friction denoted by?",
+            "answers": {
+                "a": "μs",
+                "b": "μk",
+                "c": "Fk",
+                "d": "Fs"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which force opposes the motion between the surfaces in contact in the experiment?",
+            "answers": {
+                "a": "Normal force",
+                "b": "Tension force",
+                "c": "Frictional force",
+                "d": "Gravitational force"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What is the condition for work to be done on an object?",
+            "answers": {
+                "a": "The object remains stationary",
+                "b": "There is no displacement of the object",
+                "c": "Force is applied to the object",
+                "d": "Force and displacement are in the same direction"
+            },
+            "correctAnswer": "d",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which type of energy is possessed by an object by virtue of its motion?",
+            "answers": {
+                "a": "Potential energy",
+                "b": "Elastic energy",
+                "c": "Kinetic energy",
+                "d": "Thermal energy"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What is the work done by conservative forces on a closed path?",
+            "answers": {
+                "a": "Zero",
+                "b": "Constant",
+                "c": "Negative",
+                "d": "Infinity"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What factor(s) determine whether an object kept on a tilted surface remains at rest or slides down the plane?",
+            "answers": {
+                "a": "Weight of the object",
+                "b": "Angle of the inclined plane",
+                "c": "Coefficient of friction between the surfaces in contact",
+                "d": "All of the above"
+            },
+            "correctAnswer": "d",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What is the formula for calculating kinetic energy?",
+            "answers": {
+                "a": "T = 1/2 * m * v^2",
+                "b": "T = m * g * h",
+                "c": "T = F * dr",
+                "d": "T = μ * N"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "Which type of energy depends only on the initial and final positions of the object along the path?",
+            "answers": {
+                "a": "Kinetic energy",
+                "b": "Potential energy",
+                "c": "Thermal energy",
+                "d": "Elastic energy"
+            },
+            "correctAnswer": "b",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "What is the primary source of error mentioned in the experiment?",
+            "answers": {
+                "a": "Determination of the angle of repose",
+                "b": "Setting up the inclined plane",
+                "c": "Aligning the light gates",
+                "d": "Recording the mass of the object"
+            },
+            "correctAnswer": "a",
+            "difficulty": "beginner"
+        },
+        {
+            "question": "When a block slides down an inclined plane, which of the following best represents the relationship between kinetic energy (K.E.) and potential energy (P.E.) with time?",
+            "answers": {
+                "a": "Both K.E. and P.E. increase with time",
+                "b": "K.E. decreases while P.E. increases",
+                "c": "K.E. increases while P.E. decreases",
+                "d": "Both remain constant"
+            },
+            "correctAnswer": "c",
+            "difficulty": "beginner"
+        }
+    ]
+}
