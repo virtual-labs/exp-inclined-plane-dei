@@ -1,260 +1,209 @@
 html, body {
-	overflow: hidden;
+    overflow: hidden;
 }
 div#container 
 {
-	width: 1330PX;
-	height:610PX ;
-	background: url("../images/background.jpg");
-	background-repeat : no-repeat; 
+    width: 1330PX;
+    height:610PX ;
+    background: url("../images/background.jpg");
+    background-repeat : no-repeat; 
 }
-/* .range{
-	width : 120px;
-	height: 10px;
-	appearance: none;
-	background: #edf1f4;
-	outline: 0.5px;
-	outline-style: solid;
-	outline-color:rgba(0, 0, 0, 0.3);
-	border-radius: 5px;
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff , inset 5px 5px 5px rgba(0, 0, 0, 0.1) ;
-	overflow: hidden;
-}
-.range::-webkit-slider-thumb{
-	appearance: none;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: #fff;
-	border: 2px solid #0074cf;
-	box-shadow: -158px 0 0 152px #27a0ff;
-	cursor: pointer;
-} */
 
 h3{
-	position:absolute;
-	top:10px;
-	left: 280px;
-	font-size: 28px;
+    position:absolute;
+    top:10px;
+    left: 280px;
+    font-size: 28px;
 
 }
 .play
 {
-	position: absolute;
-	top: 10px;
-	left: 0px;
+    position: absolute;
+    top: 10px;
+    left: 0px;
 }
 
 #myCanvas
 {
-	position:absolute;
-	left:250px;
-	top:-10px;
-	height: 650px;
-	width: 840px;
+    position:absolute;
+    left:250px;
+    top:-10px;
+    height: 650px;
+    width: 840px;
 
 }
-/* .object_selection
-{
-	position:absolute;
-    left: 30px;
-    top: 130px;
-}
-#ball
-{
-	position:absolute;
-    left: 30px;
-    top: 170px;
-}
-#Cube
-{position:absolute;
-    left: 30px;
-    top: 188px;
-}
-.ball_label
-{
-	position:absolute;
-    left: 60px;
-    top: 170px;
-}
-.cube_label
-{
-	position:absolute;
-    left: 60px;
-    top: 188px;
-} */
+
 .mass_object
 {
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 125px;
 
 }
 #slider_mass{
-	position:absolute;
-	left: 30px;
-	top: 145px;
+    position:absolute;
+    left: 30px;
+    top: 145px;
 }
 #initialmassValue{
-	position:absolute;
+    position:absolute;
     left: 90px;
-	top:160px;
+    top:160px;
 }
 .cof{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 190px;
 }
 #slider_cof{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 210px;
 }
 #initialmuValue{
-	position:absolute;
+    position:absolute;
     left: 95px;
     top: 225px;
 }
 
 .angle_of_inclination{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 255px;
 }
 #slider_angle{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 275px;
 }
 
 #initialInpValue{
-	position:absolute;
+    position:absolute;
     left: 95px;
     top: 290px;
 }
 .height{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 410px;
 }
 .base{
-	position: absolute;
-	left: 30px;
-	top: 440px;
-	
+    position: absolute;
+    left: 30px;
+    top: 440px;
+    
 }
 
 .dis_inp{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 470px;
 }
 .gravity{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 520px;
 }
 
 .initial_velocity{
-	position:absolute;
+    position:absolute;
     left: 30px;
     top: 320px;
 }
 #velText{
-	position: absolute;
-	/* border: none; */
-	left: 180px;
-	background-color: transparent;
-	width: 30px;
-	border-radius: 4px;
+    position: absolute;
+    left: 180px;
+    background-color: transparent;
+    width: 30px;
+    border-radius: 4px;
 }
 .lock{
-	position:absolute;
+    position:absolute;
     left: 85px;
     top: 376px;
-	font-family: Arial;
-	font-style: bold;
+    font-family: Arial;
+    font-style: bold;
 }
 #lockCheckbox{
-	position:absolute;
+    position:absolute;
     left: 135px;
     top: 372px;
-	height: 20px;
-	width: 20px;
+    height: 20px;
+    width: 20px;
 
 }
 #buttons{
-	position: absolute;
-	top: 0px;
-	left: 10px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
 }
 .controls{
-	position:absolute;
+    position:absolute;
     left: 1100px;
     top: 150px;
-	font-size: 23px;
-	font-family: Arial;
-	font-style: bold;
+    font-size: 23px;
+    font-family: Arial;
+    font-style: bold;
 }
 .play{
-	position:absolute;
-	top: 195px;
-	left: 1100px;
-	font-size: 20px;
+    position:absolute;
+    top: 195px;
+    left: 1100px;
+    font-size: 20px;
 }
 #play_button
 { 
-	position:absolute;
-	border: none;
-	cursor: pointer;
-	appearance: none;
-	background-color: inherit;
-	left: 1200px;
-	top: 190px;
+    position:absolute;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    left: 1200px;
+    top: 190px;
 }
 .pause{
-	position:absolute;
-	top: 235px;
-	left: 1100px;
-	font-size: 20px;
+    position:absolute;
+    top: 235px;
+    left: 1100px;
+    font-size: 20px;
 }
 #pause_button
 { 
-	position:absolute;
-	border: none;
-	cursor: pointer;
-	appearance: none;
-	background-color: inherit;
-	left: 1200px;
-	top: 230px;
+    position:absolute;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    left: 1200px;
+    top: 230px;
 }
 .reset{
-	position:absolute;
-	top: 270px;
-	left: 1100px;
-	font-size: 20px;
+    position:absolute;
+    top: 270px;
+    left: 1100px;
+    font-size: 20px;
 }
 #reset_button
 { 
-	position:absolute;
-	border: none;
-	cursor: pointer;
-	appearance: none;
-	background-color: inherit;
-	left: 1200px;
-	top: 265px;
+    position:absolute;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    left: 1200px;
+    top: 265px;
 }
 
 .popup {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 50px;
-	background: white;
-	border: 1px solid black;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-	font-size: 30px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    background: white;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 30px;
   }
 #stopwatch{
 position : absolute;
@@ -265,37 +214,68 @@ height: 190px;
 }
 
 .container1 {
-	background-color: #323333;
-	align-items: center;
-	position: absolute;
-	left: 890px;
-	top:246px;
+    background-color: #323333;
+    align-items: center;
+    position: absolute;
+    left: 890px;
+    top:246px;
 
 }
 #Table{
-	position: absolute;
-	top : 320px;
-	left : 1110px;
-	background-color: transparent;
+    position: relative;
+    top: auto;
+    left: auto;
+    background-color: transparent;
+    width: 100%;
 }
 table {
     border-collapse: collapse;
-    width: 150%;
-	border: 2px solid #000000;
-	font-size: 18px;
-	font-weight: bold;
+    width: 100%;
+    border: 2px solid #000000;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0;
+    background-color: white;
 }
 
 tr {
-	border-bottom: 1px solid #000000;
-	}
+    border-bottom: 1px solid #000000;
+    }
 
 /* style the table cells */
 td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #000000;
+    word-wrap: break-word;
+}
 
-padding: 6px;
-text-align: center;
-border: 2px solid #000000;
+#energyVisualization {
+    position: absolute;
+    left: 1100px;
+    top: 360px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+#energyChart {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#energyFormula {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#energyFormula p {
+    margin: 3px 0;
+    padding: 2px;
+    font-size: 11px;
 }
 
 .highlight1 {
@@ -304,63 +284,209 @@ border: 2px solid #000000;
 }
 
 .highlight2 {
-	color: green;
-	font-weight: bold;
+    color: green;
+    font-weight: bold;
 }
 .highlight3 {
-	color: blue;
-	font-weight: bold;
+    color: blue;
+    font-weight: bold;
 }
 .highlight4 {
-	color: #1d0606;
-	font-weight: bold;
+    color: #1d0606;
+    font-weight: bold;
 }
-/* .digit {
-	font-size: 26px;
-	color: #58dfab;
-	font-family: fantasy;
 
-}
-	
-.txt {
-	font-size: 26px;
-	color: #58dfab;
-	font-family: fantasy;
-} */
 div#copyright
 {
-	position:absolute;
-	left:280px;
-	top:600px;
-	height: 10px;
-	width: 800px;
-	text-align: center;
-	font-size: 12px;
-	font-family:sans-serif;
+    position:absolute;
+    left:280px;
+    top:600px;
+    height: 10px;
+    width: 800px;
+    text-align: center;
+    font-size: 12px;
+    font-family:sans-serif;
 }
 
 #screwjack{
-	position : absolute;
-	left : 380px;
-	top : 250px;
-	height: 60px;
-	width: auto;
+    position : absolute;
+    left : 380px;
+    top : 250px;
+    height: 60px;
+    width: auto;
 }
 
 #protector{
-	position : absolute;
-	left : 655px;
-	top : 172px;
-	height: 140px;
-	width: auto;
+    position : absolute;
+    left : 655px;
+    top : 172px;
+    height: 140px;
+    width: auto;
 }
 #stage3_button{
-	position : absolute;
-	left : 1180px;
-	top : 550px;
+    position : absolute;
+    left : 1180px;
+    top : 550px;
 }
 #stage2_button{
-	position : absolute;
-	left : 1180px;
-	top : 550px;
+    position : absolute;
+    left : 1180px;
+    top : 550px;
+}
+
+/* ========== Observation Table Button ========== */
+#observationTableBtn {
+    position: absolute;
+    top: 320px;
+    left: 1110px;
+    padding: 12px 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#observationTableBtn:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+#observationTableBtn:active {
+    background-color: #3d8b40;
+    transform: translateY(0);
+}
+
+/* ========== Observation Popup Styles ========== */
+.observation-popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.observation-popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    max-width: 550px;
+    width: 95%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+.observation-popup-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    border-bottom: 3px solid #4CAF50;
+    padding-bottom: 15px;
+    font-size: 24px;
+}
+
+.observation-popup-content #Table {
+    position: relative;
+    top: auto;
+    left: auto;
+    background-color: transparent;
+    width: 100%;
+    display: block;
+}
+
+.observation-popup-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #000;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    margin: 0;
+}
+
+.observation-popup-content tr {
+    border: 1px solid #000;
+}
+
+.observation-popup-content td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: white;
+}
+
+.observation-popup-content tr:first-child {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.observation-popup-content .highlight1 td {
+    color: red;
+}
+
+.observation-popup-content .highlight2 td {
+    color: green;
+}
+
+.observation-popup-content .highlight3 td {
+    color: blue;
+}
+
+.observation-popup-content .highlight4 td {
+    color: #1d0606;
+}
+
+.close-btn {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.3s;
+    line-height: 1;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    transform: scale(1.2);
 }
